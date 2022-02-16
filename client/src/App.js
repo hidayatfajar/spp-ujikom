@@ -30,7 +30,7 @@ import AddPeriode from "./components/Periode/AddPeriode";
 import EditPeriode from "./components/Periode/EditPeriode";
 
 import DataPembayaran from "./components/Pembayaran/DataPembayaran"
-
+import ProtectedRoute from "./ProtectedRoutes"
 export default class App extends Component {
   render() {
     
@@ -42,10 +42,10 @@ export default class App extends Component {
             <Route exact path="/" component={LandingPage} />
             <Route  path="/login" component={Login} />
             {/* <Route  path="/admin/" component={Sidebar} /> */}
-            <Route  path="/loginadmin" component={LoginAdmin} />
+            <Route  path="/admin/login" component={LoginAdmin} />
 
 
-            <Route exact path="/admin/dashboard" component={Dashboard} />
+            <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
             <Route exact path="/admin/jurusan" component={DataJurusan} />
             <Route exact path="/admin/jurusan/ubah/:id" component={UbahJurusan} />
             <Route exact path="/admin/jurusan/tambah" component={TambahJurusan} />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import {
   Container,
   Navbar,
@@ -40,7 +41,7 @@ const SideBar = () => {
   const [btnright, setBtnright] = useState("none");
 
   const [dropdown, setDown] = useState("none");
-
+  
   const [mode, setMode] = useState(1);
 
   const changeSidebar = () => {
@@ -79,7 +80,12 @@ const SideBar = () => {
       setMode(0);
     }
   };
+  const history = useHistory();
+  const handleLogout = () => {
+    localStorage.removeItem('dataAdmin');
+    history.push('/');
 
+  }
   return (
     <div>
       {/* Navbar */}
@@ -91,7 +97,7 @@ const SideBar = () => {
         variant="dark"
         fixed="top"
       >
-        <Navbar.Brand href="#home"> Sistem Pembayaran Sekolah </Navbar.Brand>
+        <Navbar.Brand> Sistem Pembayaran Sekolah </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse
           className="justify-content-end"
@@ -112,7 +118,7 @@ const SideBar = () => {
           menuVariant="dark">
           <NavDropdown.Item href="/admin/profile/">Profile</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick="">Logout</NavDropdown.Item>
+          <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
         </NavDropdown>
             </Nav.Item>
         
