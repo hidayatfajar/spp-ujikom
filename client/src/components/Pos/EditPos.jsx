@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import SimpleReactValidator from "simple-react-validator";
 
-export default class UbahJurusan extends Component {
+export default class EditPos extends Component {
   constructor(props) {
     super(props);
     this.validator = new SimpleReactValidator();
@@ -14,23 +14,25 @@ export default class UbahJurusan extends Component {
     console.log(this.props.match.params.id);
     this.state = {
       id: this.props.match.params.id,
-      jurusan_nama: "",
-      jurusan_id: "",
+      pos_nama: "",
+      pos_deskripsi: "",
+      pos_id: "",
       dataError: "",
       errorMessage: "",
     };
   }
 
   getData() {
-    const jurusan_id = this.state.id;
+    const pos_id = this.state.id;
     axios
-      .get(`http://localhost:8000/jurusan/${jurusan_id}`)
+      .get(`http://localhost:8000/pos/${pos_id}`)
       .then((res) => {
         console.log(res);
         console.log(res.data[0]);
         this.setState({
-          jurusan_id: res.data[0].jurusan_id,
-          jurusan_nama: res.data[0].jurusan_nama,
+          pos_id: res.data[0].pos_id,
+          pos_nama: res.data[0].pos_nama,
+          pos_deskripsi: res.data[0].pos_deskripsi,
         });
       })
       .catch((err) => {
@@ -52,18 +54,20 @@ export default class UbahJurusan extends Component {
   editData = (e) => {
     e.preventDefault();
     const data = {
-      jurusan_nama: this.state.jurusan_nama,
+      pos_nama: this.state.pos_nama,
+      pos_deskripsi: this.state.pos_deskripsi,
     };
-    const jurusan_id = this.state.jurusan_id;
+    const pos_id = this.state.pos_id;
     if (this.validator.allValid()) {
       axios
-        .put(`http://localhost:8000/ubah/jurusan/${jurusan_id}`, data)
+        .put(`http://localhost:8000/ubah/pos/${pos_id}`, data)
         .then((res) => {
           console.log(res.data);
           this.setState({
-            jurusan_nama: "",
+            pos_nama: "",
+            pos_deskripsi: "",
           });
-          this.props.history.push("/admin/jurusan");
+          this.props.history.push("/admin/pos");
         })
         .catch((err) => {
           console.log(err);
@@ -82,26 +86,26 @@ export default class UbahJurusan extends Component {
         <div className="container">
           <Form onSubmit={this.editData}>
             <Form.Group className="mb-3">
-              <Form.Label>Id jurusan</Form.Label>
+              <Form.Label>Id pos</Form.Label>
               <Form.Control
-                name="jurusan_id"
-                id="jurusan_id"
+                name="pos_id"
+                id="pos_id"
                 type="text"
-                value={this.state.jurusan_id}
-                placeholder="Id jurusan"
+                value={this.state.pos_id}
+                placeholder="Id pos"
                 noValidate
                 onChange={this.handleChange}
                 readOnly
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Nama Jurusan</Form.Label>
+              <Form.Label>Nama pos</Form.Label>
               <Form.Control
-                name="jurusan_nama"
-                id="jurusan_nama"
+                name="pos_nama"
+                id="pos_nama"
                 type="text"
-                value={this.state.jurusan_nama}
-                placeholder="Nama Jurusan"
+                value={this.state.pos_nama}
+                placeholder="Nama pos"
                 noValidate
                 onChange={this.handleChange}
               />
@@ -110,8 +114,23 @@ export default class UbahJurusan extends Component {
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
                 {this.validator.message(
-                  "Nama Jurusan",
-                  this.state.jurusan_nama,
+                  "Nama pos",
+                  this.state.pos_nama,
+                  `required`,
+                  { className: "text-danger" }
+                )}
+              </div>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Pos Deskripsi</Form.Label>
+              <Form.Control name="pos_deskripsi" id="pos_deskripsi" type="text" value={this.state.pos_deskripsi} placeholder="Nama pos" noValidate onChange={this.handleChange} />
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message(
+                  "pos_deskripsi",
+                  this.state.pos_deskripsi,
                   `required`,
                   { className: "text-danger" }
                 )}

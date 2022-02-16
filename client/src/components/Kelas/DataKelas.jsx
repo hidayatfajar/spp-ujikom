@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 // import Sidebar from '../Sidebar/SideBar'
 
-export default class DataSiswa extends Component {
+export default class DataKelas extends Component {
   constructor(props) {
     super(props);
 
@@ -16,8 +16,8 @@ export default class DataSiswa extends Component {
     };
   }
 
-  getSiswa = () => {
-    axios.get("http://localhost:8000/siswa/").then((res) => {
+  getkelas = () => {
+    axios.get("http://localhost:8000/kelas/").then((res) => {
       this.setState({
         data: res.data,
       });
@@ -25,16 +25,16 @@ export default class DataSiswa extends Component {
     });
   };
 
-  handleRemove = (siswa_id) => {
+  handleRemove = (kelas_id) => {
     axios
-      .delete(`http://localhost:8000/hapus/siswa/${siswa_id}`)
+      .delete(`http://localhost:8000/hapus/kelas/${kelas_id}`)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    this.getSiswa();
+    this.getkelas();
   };
 
   //   getAdmin = () => {
@@ -49,7 +49,7 @@ export default class DataSiswa extends Component {
   //   }
 
   componentDidMount() {
-    this.getSiswa();
+    this.getkelas();
   }
   render() {
     const data = this.state.data;
@@ -58,35 +58,14 @@ export default class DataSiswa extends Component {
       clickToSelect: true,
     };
     const columns = [
-      // {
-      //   dataField: "siswa_id",
-      //   text: "Siswa ID",
-      //   sort : true
-      // },
       {
-        dataField: "siswa_nama",
-        text: "Nama Siswa",
-        sort: true
-      },
-      {
-        dataField: "siswa_nis",
-        text: "NIS",
-      },
-      {
-        dataField: "siswa_gender",
-        text: "Jenis Kelamin",
+        dataField: "kelas_id",
+        text: "kelas ID",
+        sort : true
       },
       {
         dataField: "kelas_nama",
-        text: "Kelas",
-      },
-      {
-        dataField: "jurusan_nama",
-        text: "Nama Jurusan",
-      },
-      {
-        dataField: "d_kelas_nama",
-        text: "Nama Kelas",
+        text: "Nama kelas",
       },
       {
         dataField: "Aksi",
@@ -99,7 +78,7 @@ export default class DataSiswa extends Component {
               <Container>
                 <Row>
                   <Col md={4}>
-                    <Link to={`/ubah/siswa/${row.siswa_id}`} >
+                    <Link to={`/admin/kelas/ubah/${row.kelas_id}`} >
                       <Button variant="warning" className="mr-2" block >
                         <FontAwesomeIcon icon={faEye} />
                       </Button>
@@ -108,7 +87,7 @@ export default class DataSiswa extends Component {
                   <Col >
                     <Button
                       variant="danger"
-                      onClick={() => this.handleRemove(row.siswa_id)}
+                      onClick={() => this.handleRemove(row.kelas_id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
@@ -122,7 +101,7 @@ export default class DataSiswa extends Component {
     ];
     const defaultSorted = [
         {
-          dataField: "siswa_nama",
+          dataField: "kelas_id",
           order: "asc",
         },
       ];
@@ -130,7 +109,7 @@ export default class DataSiswa extends Component {
       <div>
         <Card>
           <Card.Body>
-            <Link to={"/admin/siswa/tambah/"}>
+            <Link to={"/admin/kelas/tambah/"}>
               <Button className="mr-2" variant="outline-primary" block="">
                 Create
               </Button>

@@ -98,31 +98,24 @@ const SideBar = () => {
           id="responsive-navbar-nav"
         >
           <Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-            </Form>
-            <Nav.Item>
-              <Image
-                width={35}
-                height={35}
-                src={notif}
-                style={{ backgroundColor: "#0093EB", borderRadius: "4px" }}
-              />
-            </Nav.Item>
             <div className="img">
               <Nav.Item>
                 <Image
                   width={40}
                   height={40}
                   src={img}
-                  style={{ borderRadius: "4px" }}
+                  style={{ borderRadius: "20px", marginTop: "4px" }}
                 />
-              </Nav.Item>
+            <NavDropdown
+          id="nav-dropdown-dark-example"
+          title="Nama Yang Login"
+          menuVariant="dark">
+          <NavDropdown.Item href="/admin/profile/">Profile</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item onClick="">Logout</NavDropdown.Item>
+        </NavDropdown>
+            </Nav.Item>
+        
             </div>
           </Nav>
         </Navbar.Collapse>
@@ -132,7 +125,7 @@ const SideBar = () => {
 
       <div className={sidebar}>
         <br />
-        <a href="/dashboard">
+        <a href="/admin">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>
@@ -140,7 +133,7 @@ const SideBar = () => {
         </a>
 
         <div className="dropdown">
-          <a href="#" onClick={changeDropdown}>
+          <a onClick={changeDropdown}>
             <span className="icon">
               <FontAwesomeIcon icon={faUsers} />
             </span>
@@ -152,38 +145,38 @@ const SideBar = () => {
             style={{ display: dropdown }}
           >
             <ul>
-              <a href="admin/siswa">
+              <a href="/admin/data">
                 <li>Siswa </li>
               </a>
               <a href="/admin/jurusan">
                 <li>Jurusan</li>{" "}
               </a>
-              <a href="#">
+              <a href="/admin/kelas">
                 <li>Kelas</li>{" "}
               </a>
             </ul>
           </div>
         </div>
 
-        {/* <a href="#">
+        <a href="/admin/periode">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}> Tahun Ajaran</span>
         </a>
-        <a href="#">
+        <a href="/admin/pos">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}>Post</span>
         </a>
-        <a href="#">
+        {/* <a href="#">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}>Pembayaran</span>
-        </a>
-        <a href="#">
+        </a> */}
+        {/* <a href="#">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
@@ -204,17 +197,12 @@ const SideBar = () => {
         </div>
       </div>
 
-      <div className={main}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/admin" component={Data} />
-            <Route path="/admin/jurusan" component={Data} />
-            <Route path='/jurusan/tambah' component={TambahJurusan} />
-            <Route path='/jurusan/ubah/:id' component={UbahJurusan} />
-            <Route path='/admin/siswa' component={DataSiswa} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      {/* <div className={main}>
+
+            <Route  path="/admin" exact component={Dashboard} />
+            <Route path="/admin/data" exact component={Data} />
+
+      </div> */}
     </div>
   );
 };

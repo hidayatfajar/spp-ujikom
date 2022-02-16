@@ -10,8 +10,9 @@ import {
 } from "react-bootstrap";
 import SimpleReactValidator from "simple-react-validator";
 import axios from "axios";
+// import Sidebar from '../Sidebar/SideBar'
 
-export default class TambahJurusan extends Component {
+export default class TambahSiswa extends Component {
   constructor(props) {
     super(props);
     this.validator = new SimpleReactValidator();
@@ -22,10 +23,13 @@ export default class TambahJurusan extends Component {
       password: "",
       gender: "",
       kelas: [],
-      jurusan: [],
+      jurusan: [  ],
       d_kelas: [],
       dataError: "",
       errorMessage: "",
+      selected_kelas: "",
+      selected_jurusan: "",
+      selected_d_kelas: "",
     };
   }
   handleChange = (e) => {
@@ -85,19 +89,23 @@ export default class TambahJurusan extends Component {
       nama: this.state.nama,
       password: this.state.password,
       gender: this.state.gender,
-      kelas: this.state.kelas,
-      jurusan: this.state.jurusan,
-      d_kelas: this.state.d_kelas,
+      kelas: this.state.selected_kelas,
+      jurusan: this.state.selected_jurusan,
+      d_kelas: this.state.selected_d_kelas,
+      selected_kelas: this.selected_kelas,
+      selected_jurusan: this.selected_jurusan,
+      selected_d_kelas: this.selected_d_kelas
     };
+    e.preventDefault();
     if (this.validator.allValid()) {
       axios
         .post("http://localhost:8000/tambah/siswa", data)
         .then((res) => {
           console.log(res.data.message);
           this.setState({
-              errorMessage: res.data.message,
           });
           console.log(this.state.kelas);
+          console.log(this.state.jurusan);
           if (this.state.dataError) {
           } else {
             // this.props.history.push("/admin/siswa");
@@ -117,6 +125,7 @@ export default class TambahJurusan extends Component {
   render() {
     return (
       <div>
+        {/* <Sidebar /> */}
         <div className="container">
           <Form onSubmit={this.Submit}>
             <Form.Group className="mb-3">
@@ -185,40 +194,63 @@ export default class TambahJurusan extends Component {
             <Form.Group className="mb-3">
               <Form.Label>Jenis Kelamin</Form.Label>
               <FormSelect name="gender" onChange={this.handleChange}>
-                <option>Pilih Jenis Kelamin</option>
+                <option>=== Pilih Jenis Kelamin ===</option>
                 <option value="L">Laki-Laki</option>
                 <option value="P">Perempuan</option>
               </FormSelect>
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message("gender", this.state.gender, `required`, {
+                  className: "text-danger",
+                })}
+              </div>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Kelas</Form.Label>
-              <FormSelect onChange={this.handleChange}>
+              <FormSelect name='selected_kelas' onChange={this.handleChange}>
+              <option>=== Pilih Kelas ===</option>
                 {this.state.kelas.map((kelas) => {
                   return (
-                    <option value={kelas.kelas_id}>{kelas.kelas_nama}</option>
+                    <option key={kelas.kelas_id} value={kelas.kelas_id}>{kelas.kelas_nama}</option>
                   );
                 })}
               </FormSelect>
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message("Kelas", this.state.selected_kelas, `required`, {
+                  className: "text-danger",
+                })}
+              </div>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Jurusan</Form.Label>
-              <FormSelect onChange={this.handleChange}>
-                <option>Pilih Jurusan</option>
+              <FormSelect name='selected_jurusan' onChange={this.handleChange}>
+                <option>=== Pilih Jurusan ===</option>
                 {this.state.jurusan.map((jurusan) => {
                   return (
-                    <option key={jurusan.jurusan_id} value={jurusan.jurusan_id}>
-                      {jurusan.jurusan_nama}
-                    </option>
+                    <option key={jurusan.jurusan_id} value={jurusan.jurusan_id}>{jurusan.jurusan_nama}</option>
                   );
                 })}
               </FormSelect>
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message("Jurusan", this.state.selected_jurusan, `required`, {
+                  className: "text-danger",
+                })}
+              </div>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Daftar Kelas</Form.Label>
-              <FormSelect onChange={this.handleChange}>
-                <option>Pilih Daftar Kelas</option>
+              <FormSelect name='selected_d_kelas'onChange={this.handleChange}>
+                <option>=== Pilih Daftar Kelas ===</option>
                 {this.state.d_kelas.map((d_kelas) => {
                   return (
                     <option key={d_kelas.d_kelas_id} value={d_kelas.d_kelas_id}>
@@ -227,6 +259,14 @@ export default class TambahJurusan extends Component {
                   );
                 })}
               </FormSelect>
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message("Daftar Kelas", this.state.selected_d_kelas, `required`, {
+                  className: "text-danger",
+                })}
+              </div>
             </Form.Group>
 
             <Button variant="primary" type="submit">

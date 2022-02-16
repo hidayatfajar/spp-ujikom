@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 import { Container, Navbar, Nav, NavDropdown, Card, Row, Col, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faCreditCard, faUserCheck, faUserTimes } from '@fortawesome/free-solid-svg-icons'
-
 import './Dashboard.css'
+import Sidebar from '../Sidebar/SideBar'
 
 export default class Dashboard extends Component {
     render() {
         return (
             <div>
+                <Sidebar />
                 <Row>
 
                     {/* Card */}
                     <Col md={3} sm={6}>
-                        <Card body bg="primary" className='card' >
+                        <Card body bg="primary" className='card' sm={5} >
                             <Row>
                                 <Col md={4} className='icon'>
                                     <FontAwesomeIcon icon={faUsers} />

@@ -36,17 +36,6 @@ export default class Data extends Component {
     this.getAdmin();
   };
 
-  //   getAdmin = () => {
-  //       axios.get('http://localhost:8000/jurusan/')
-  //       .then((response) => response.json())
-  //       .then((json) => {
-  //           console.log(json)
-  //           this.setState({
-  //               data : json
-  //           })
-  //       })
-  //   }
-
   componentDidMount() {
     this.getAdmin();
   }
@@ -75,7 +64,7 @@ export default class Data extends Component {
               <Container>
                 <Row>
                   <Col md={2}>
-                    <Link to={`/jurusan/ubah/${row.jurusan_id}`} >
+                    <Link to={`/admin/jurusan/ubah/${row.jurusan_id}`} >
                       <Button variant="warning" className="mr-2" block >
                         <FontAwesomeIcon icon={faEye} />
                       </Button>
@@ -100,7 +89,7 @@ export default class Data extends Component {
       <div>
         <Card>
           <Card.Body>
-            <Link to={"/jurusan/tambah"}>
+            <Link to={"/admin/jurusan/tambah"}>
               <Button className="mr-2" variant="outline-primary" block="">
                 Create
               </Button>

@@ -4,10 +4,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Row, Container, Col, Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-// import Sidebar from '../Sidebar/SideBar'
+import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "../../components/Sidebar/SideBar";
 
-export default class DataSiswa extends Component {
+export default class DataPos extends Component {
   constructor(props) {
     super(props);
 
@@ -16,40 +16,28 @@ export default class DataSiswa extends Component {
     };
   }
 
-  getSiswa = () => {
-    axios.get("http://localhost:8000/siswa/").then((res) => {
+  getPos = () => {
+    axios.get("http://localhost:8000/pos/").then((res) => {
       this.setState({
         data: res.data,
       });
-      console.log(this.state.data);
     });
   };
 
-  handleRemove = (siswa_id) => {
+  handleRemove = (pos_id) => {
     axios
-      .delete(`http://localhost:8000/hapus/siswa/${siswa_id}`)
+      .delete(`http://localhost:8000/hapus/pos/${pos_id}`)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    this.getSiswa();
-  };
-
-  //   getAdmin = () => {
-  //       axios.get('http://localhost:8000/jurusan/')
-  //       .then((response) => response.json())
-  //       .then((json) => {
-  //           console.log(json)
-  //           this.setState({
-  //               data : json
-  //           })
-  //       })
-  //   }
+    this.getAdmin();
+    };
 
   componentDidMount() {
-    this.getSiswa();
+    this.getPos();
   }
   render() {
     const data = this.state.data;
@@ -58,35 +46,17 @@ export default class DataSiswa extends Component {
       clickToSelect: true,
     };
     const columns = [
-      // {
-      //   dataField: "siswa_id",
-      //   text: "Siswa ID",
-      //   sort : true
-      // },
       {
-        dataField: "siswa_nama",
-        text: "Nama Siswa",
-        sort: true
+        dataField: "pos_id",
+        text: "No",
       },
       {
-        dataField: "siswa_nis",
-        text: "NIS",
+        dataField: "pos_nama",
+        text: "Nama pos",
       },
       {
-        dataField: "siswa_gender",
-        text: "Jenis Kelamin",
-      },
-      {
-        dataField: "kelas_nama",
-        text: "Kelas",
-      },
-      {
-        dataField: "jurusan_nama",
-        text: "Nama Jurusan",
-      },
-      {
-        dataField: "d_kelas_nama",
-        text: "Nama Kelas",
+        dataField: "pos_deskripsi",
+        text: "Pos Deskripsi",
       },
       {
         dataField: "Aksi",
@@ -95,20 +65,20 @@ export default class DataSiswa extends Component {
         formatter: (cellContent, row) => {
           return (
             <div>
-              {/* <Sidebar /> */}
+              
               <Container>
                 <Row>
-                  <Col md={4}>
-                    <Link to={`/ubah/siswa/${row.siswa_id}`} >
+                  <Col md={2}>
+                    <Link to={`/admin/pos/ubah/${row.pos_id}`} >
                       <Button variant="warning" className="mr-2" block >
-                        <FontAwesomeIcon icon={faEye} />
+                        <FontAwesomeIcon icon={faEdit} />
                       </Button>
                     </Link>
                   </Col>
                   <Col >
                     <Button
                       variant="danger"
-                      onClick={() => this.handleRemove(row.siswa_id)}
+                      onClick={() => this.handleRemove(row.pos_id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
@@ -120,17 +90,11 @@ export default class DataSiswa extends Component {
         },
       },
     ];
-    const defaultSorted = [
-        {
-          dataField: "siswa_nama",
-          order: "asc",
-        },
-      ];
     return (
       <div>
         <Card>
           <Card.Body>
-            <Link to={"/admin/siswa/tambah/"}>
+            <Link to={"/admin/pos/tambah"}>
               <Button className="mr-2" variant="outline-primary" block="">
                 Create
               </Button>
@@ -140,7 +104,6 @@ export default class DataSiswa extends Component {
               keyField="id"
               data={data}
               columns={columns}
-              defaultSorted={defaultSorted}
               striped
               hover
               condensed

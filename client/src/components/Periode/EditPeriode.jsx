@@ -6,31 +6,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import SimpleReactValidator from "simple-react-validator";
 
-export default class UbahJurusan extends Component {
+export default class Editperiode extends Component {
   constructor(props) {
     super(props);
     this.validator = new SimpleReactValidator();
 
-    console.log(this.props.match.params.id);
+    console.log(this.props.match.params.periode_id);
     this.state = {
       id: this.props.match.params.id,
-      jurusan_nama: "",
-      jurusan_id: "",
+      periode_mulai: "",
+      periode_akhir: "",
+      periode_id: "",
       dataError: "",
       errorMessage: "",
     };
   }
 
   getData() {
-    const jurusan_id = this.state.id;
+    const periode_id = this.state.id;
     axios
-      .get(`http://localhost:8000/jurusan/${jurusan_id}`)
+      .get(`http://localhost:8000/periode/${periode_id}`)
       .then((res) => {
         console.log(res);
-        console.log(res.data[0]);
+        console.log(res.data);
         this.setState({
-          jurusan_id: res.data[0].jurusan_id,
-          jurusan_nama: res.data[0].jurusan_nama,
+          periode_id: res.data[0].periode_id,
+          periode_mulai: res.data[0].periode_mulai,
+          periode_akhir: res.data[0].periode_akhir,
         });
       })
       .catch((err) => {
@@ -52,18 +54,20 @@ export default class UbahJurusan extends Component {
   editData = (e) => {
     e.preventDefault();
     const data = {
-      jurusan_nama: this.state.jurusan_nama,
+      periode_mulai: this.state.periode_mulai,
+      periode_akhir: this.state.periode_akhir,
     };
-    const jurusan_id = this.state.jurusan_id;
+    const periode_id = this.state.periode_id;
     if (this.validator.allValid()) {
       axios
-        .put(`http://localhost:8000/ubah/jurusan/${jurusan_id}`, data)
+        .put(`http://localhost:8000/ubah/periode/${periode_id}`, data)
         .then((res) => {
           console.log(res.data);
           this.setState({
-            jurusan_nama: "",
+            periode_mulai: "",
+            periode_akhir: "",
           });
-          this.props.history.push("/admin/jurusan");
+          this.props.history.push("/admin/periode");
         })
         .catch((err) => {
           console.log(err);
@@ -82,26 +86,25 @@ export default class UbahJurusan extends Component {
         <div className="container">
           <Form onSubmit={this.editData}>
             <Form.Group className="mb-3">
-              <Form.Label>Id jurusan</Form.Label>
+              <Form.Label>Periode ID</Form.Label>
               <Form.Control
-                name="jurusan_id"
-                id="jurusan_id"
+                name="periode_id"
+                id="periode_id"
                 type="text"
-                value={this.state.jurusan_id}
-                placeholder="Id jurusan"
+                value={this.state.id}
                 noValidate
                 onChange={this.handleChange}
                 readOnly
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Nama Jurusan</Form.Label>
+              <Form.Label>Periode Mulai</Form.Label>
               <Form.Control
-                name="jurusan_nama"
-                id="jurusan_nama"
+                name="periode_mulai"
+                id="periode_mulai"
                 type="text"
-                value={this.state.jurusan_nama}
-                placeholder="Nama Jurusan"
+                value={this.state.periode_mulai}
+                placeholder="Periode Mulai"
                 noValidate
                 onChange={this.handleChange}
               />
@@ -110,8 +113,23 @@ export default class UbahJurusan extends Component {
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
                 {this.validator.message(
-                  "Nama Jurusan",
-                  this.state.jurusan_nama,
+                  "Periode Mulai",
+                  this.state.periode_mulai,
+                  `required`,
+                  { className: "text-danger" }
+                )}
+              </div>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Periode Akhir</Form.Label>
+              <Form.Control name="periode_akhir" id="periode_akhir" type="text" value={this.state.periode_akhir} placeholder="Periode Akhir" noValidate onChange={this.handleChange} />
+              <div>
+                {this.state.dataError ? (
+                  <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+                ) : null}
+                {this.validator.message(
+                  "Periode Akhir",
+                  this.state.periode_akhir,
                   `required`,
                   { className: "text-danger" }
                 )}

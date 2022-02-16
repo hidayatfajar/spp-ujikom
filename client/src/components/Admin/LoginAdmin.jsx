@@ -47,7 +47,7 @@ export default class Login extends Component {
                 token : res.data.token
               }),
             );
-            this.props.history.push('/admin');
+            this.props.history.push('/admin/dashboard');
           }
           console.log(res.data);
         })
