@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+// package
 import { useHistory } from "react-router";
 import {
   Container,
@@ -24,13 +26,34 @@ import {
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import img from "../Assets/user.jpg";
 import notif from "../Assets/svg_notification.svg";
+
+
+// Import File
+import Dashboard from "../Dashboard/Dashboard";
+
+import DataJurusan from "../Jurusan/DataJurusan";
 import UbahJurusan from "../Jurusan/UbahJurusan";
 import TambahJurusan from "../Jurusan/TambahJurusan";
-import Dashboard from "../Dashboard/Dashboard";
+
 import DataSiswa from "../Siswa/DataSiswa";
+import TambahSiswa from "../Siswa/TambahSiswa";
+import UbahSiswa from "../Siswa/UbahSiswa";
+
+import DataPos from "../Pos/DataPos";
+import AddPos from "../Pos/AddPos";
+import EditPos from "../Pos/EditPos";
+
+import DataPeriode from "../Periode/DataPeriode";
+import AddPeriode from "../Periode/AddPeriode";
+import EditPeriode from "../Periode/EditPeriode";
+
+import DataKelas from "../Kelas/DataKelas";
+import Tambahkelas from "../Kelas/TambahKelas";
+import UbahKelas from "../Kelas/UbahKelas";
+
+import DataPembayaran from "../Pembayaran/DataPembayaran";
 
 import "./SideBar.css";
-import Data from "../Jurusan/DataJurusan";
 
 const SideBar = () => {
   const [sidebar, setSidebar] = useState("sidebar");
@@ -41,7 +64,7 @@ const SideBar = () => {
   const [btnright, setBtnright] = useState("none");
 
   const [dropdown, setDown] = useState("none");
-  
+
   const [mode, setMode] = useState(1);
 
   const changeSidebar = () => {
@@ -112,20 +135,22 @@ const SideBar = () => {
                   src={img}
                   style={{ borderRadius: "20px", marginTop: "4px" }}
                 />
-            <NavDropdown
-          id="nav-dropdown-dark-example"
-          title="Nama Yang Login"
-          menuVariant="dark">
-          <NavDropdown.Item href="/admin/profile/">Profile</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-        </NavDropdown>
-            </Nav.Item>
-        
+                <NavDropdown
+                  id="nav-dropdown-dark-example"
+                  title="Nama Yang Login"
+                  menuVariant="dark">
+                  <NavDropdown.Item href="/admin/profile/">Profile</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              </Nav.Item>
+
             </div>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
+      {/* ------------------------------------------------------ */}
 
       {/* Sidebar */}
 
@@ -137,21 +162,24 @@ const SideBar = () => {
           </span>
           <span style={{ display: text }}>Dashboard</span>
         </a>
-
+        {/* --------- */}
         <div className="dropdown">
-          <a onClick={changeDropdown}>
-            <span className="icon">
-              <FontAwesomeIcon icon={faUsers} />
-            </span>
-            <span style={{ display: text }}>Management Data</span>
-          </a>
+          <span className="drop">
+            <a onClick={changeDropdown} >
+              <span className="icon">
+                <FontAwesomeIcon icon={faUsers} />
+              </span>
+              <span style={{ display: text }}>Management Data</span>
+            </a>
+          </span>
+
           <div
             id="myDropdown"
             className="dropdown-content"
             style={{ display: dropdown }}
           >
             <ul>
-              <a href="/admin/data">
+              <a href="/admin/siswa">
                 <li>Siswa </li>
               </a>
               <a href="/admin/jurusan">
@@ -164,24 +192,30 @@ const SideBar = () => {
           </div>
         </div>
 
+        {/* -------- */}
         <a href="/admin/periode">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}> Tahun Ajaran</span>
         </a>
+
+        {/* --------- */}
         <a href="/admin/pos">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}>Post</span>
         </a>
-        {/* <a href="#">
+
+        {/* ----------- */}
+        <a href="/admin/pembayaran">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}>Pembayaran</span>
-        </a> */}
+        </a>
+
         {/* <a href="#">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
@@ -203,12 +237,33 @@ const SideBar = () => {
         </div>
       </div>
 
-      {/* <div className={main}>
+      <div className={main}>
 
-            <Route  path="/admin" exact component={Dashboard} />
-            <Route path="/admin/data" exact component={Data} />
+        <Route path="/admin" exact component={Dashboard} />
 
-      </div> */}
+        <Route exact path="/admin/siswa" component={DataSiswa} />
+        <Route exact path="/admin/siswa/tambah" component={TambahSiswa} />
+        <Route exact path="/admin/siswa/ubah/:id" component={UbahSiswa} />
+
+        <Route exact path="/admin/jurusan" component={DataJurusan} />
+        <Route exact path="/admin/jurusan/ubah/:id" component={UbahJurusan} />
+        <Route exact path="/admin/jurusan/tambah" component={TambahJurusan} />
+
+        <Route exact path="/admin/pos/" component={DataPos} />
+        <Route exact path="/admin/pos/tambah" component={AddPos} />
+        <Route exact path="/admin/pos/ubah/:id" component={EditPos} />
+
+        <Route exact path="/admin/periode/" component={DataPeriode} />
+        <Route exact path="/admin/periode/tambah" component={AddPeriode} />
+        <Route exact path="/admin/periode/ubah/:id" component={EditPeriode} />
+
+        <Route exact path="/admin/kelas/" component={DataKelas} />
+        <Route exact path="/admin/kelas/tambah" component={Tambahkelas} />
+        <Route exact path="/admin/kelas/ubah/" component={UbahKelas} />
+
+        <Route exact path="/admin/pembayaran" component={DataPembayaran} />
+
+      </div>
     </div>
   );
 };
