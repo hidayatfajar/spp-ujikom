@@ -103,6 +103,13 @@
 .dropdown {
   display: inline-block;
 }
+
+.dropdown .drop{
+  font-size: 15px;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: block;

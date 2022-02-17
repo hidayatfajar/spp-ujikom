@@ -39,15 +39,15 @@ export default class Login extends Component {
             localStorage.setItem(
               "dataAdmin",
               JSON.stringify({
-                id : res.data.admin_id,
-                email : res.data.email,
-                nama : res.data.nama,
-                password : res.data.password,
-                status : res.data.status,
-                token : res.data.token
+                id: res.data.admin_id,
+                email: res.data.email,
+                nama: res.data.nama,
+                password: res.data.password,
+                status: res.data.status,
+                token: res.data.token
               }),
             );
-            this.props.history.push('/admin/dashboard');
+            this.props.history.push('/admin');
           }
           console.log(res.data);
         })
