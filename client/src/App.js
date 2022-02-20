@@ -41,7 +41,7 @@ export default class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={LandingPage} />
-            <Route path="/login" component={LoginAdmin} />
+            <Route path="/admin/login" component={LoginAdmin} />
             <Route path="/admin" component={SideBar} />
           </Switch>
 

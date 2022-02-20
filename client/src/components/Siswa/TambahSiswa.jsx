@@ -10,7 +10,9 @@ import {
 } from "react-bootstrap";
 import SimpleReactValidator from "simple-react-validator";
 import axios from "axios";
-// import Sidebar from '../Sidebar/SideBar'
+import Swal from 'sweetalert2'
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
+
 
 export default class TambahSiswa extends Component {
   constructor(props) {
@@ -103,12 +105,26 @@ export default class TambahSiswa extends Component {
         .then((res) => {
           console.log(res.data.message);
           this.setState({
+            dataError: res.data.message,
           });
           console.log(this.state.kelas);
           console.log(this.state.jurusan);
           if (this.state.dataError) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${this.state.dataError}`,
+            })
+            this.setState({
+              nis: "",
+            });
           } else {
-            // this.props.history.push("/admin/siswa");
+            Swal.fire(
+              'Good job!',
+              'Your data hasbeen added!',
+              'success'
+            )
+            this.props.history.push("/admin/siswa");
           }
           console.log(res.data);
         })
@@ -125,8 +141,24 @@ export default class TambahSiswa extends Component {
   render() {
     return (
       <div>
+        <Card>
+
+<Card.Body>
+  <Breadcrumb style={{
+      marginTop: "auto",
+      marginBottom: "-10px"
+      
+    }}>
+  <Breadcrumb.Item href="/admin/">Home</Breadcrumb.Item>
+  <Breadcrumb.Item href="/admin/siswa/">Data</Breadcrumb.Item>
+  <Breadcrumb.Item active>Add</Breadcrumb.Item>
+  </Breadcrumb>
+  </Card.Body>
+</Card>
+<br></br>
+      <Card style={{ color: 'black'}}>
+        <Card.Body>
         {/* <Sidebar /> */}
-        <div className="container">
           <Form onSubmit={this.Submit}>
             <Form.Group className="mb-3">
               <Form.Label>NIS</Form.Label>
@@ -143,7 +175,7 @@ export default class TambahSiswa extends Component {
                 {this.state.dataError ? (
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
-                {this.validator.message("nis", this.state.nis, `required`, {
+                {this.validator.message("nis", this.state.nis, `required|int`, {
                   className: "text-danger",
                 })}
               </div>
@@ -273,7 +305,8 @@ export default class TambahSiswa extends Component {
               Submit
             </Button>
           </Form>
-        </div>
+        </Card.Body>
+      </Card>
       </div>
     );
   }

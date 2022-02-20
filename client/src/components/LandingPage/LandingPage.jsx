@@ -66,7 +66,7 @@ export default class LandingPage extends Component {
                                     <h3>Sistem Pembayaran Uang Sekolah</h3>
                                     <p>Platform bagi murid dan orang tua untuk membayar
                                         keperluan sekolah dari aplikasi pembayaran favorit mereka</p>
-                                    <Button href="/adminlogin" className='btn1'>Log in</Button>
+                                    <Button href="/admin/login" className='btn1'>Log in</Button>
                                 </div>
                             </Col>
                             <Col md={6}>

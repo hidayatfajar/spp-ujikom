@@ -37,7 +37,7 @@ import TambahJurusan from "../Jurusan/TambahJurusan";
 
 import DataSiswa from "../Siswa/DataSiswa";
 import TambahSiswa from "../Siswa/TambahSiswa";
-import UbahSiswa from "../Siswa/UbahSiswa";
+import UbahSiswa from "../Siswa/UbahSiswa"; //ini yg ga tampil
 
 import DataPos from "../Pos/DataPos";
 import AddPos from "../Pos/AddPos";
@@ -120,7 +120,7 @@ const SideBar = () => {
         variant="dark"
         fixed="top"
       >
-        <Navbar.Brand> Sistem Pembayaran Sekolah </Navbar.Brand>
+        <Navbar.Brand> SPS</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse
           className="justify-content-end"
@@ -155,6 +155,13 @@ const SideBar = () => {
       {/* Sidebar */}
 
       <div className={sidebar}>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <a href="/admin">
           <span className="icon">
