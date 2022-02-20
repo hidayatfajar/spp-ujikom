@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { Row, Container, Col, Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import Sidebar from "../../components/Sidebar/SideBar";
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
+
 
 export default class DataPos extends Component {
   constructor(props) {
@@ -92,6 +93,18 @@ export default class DataPos extends Component {
     ];
     return (
       <div>
+      <Card>
+      <Card.Body>
+        <Breadcrumb style={{
+            marginTop: "auto",
+            marginBottom: "-10px"
+            }}>
+        <Breadcrumb.Item href="/admin/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Data</Breadcrumb.Item>
+        </Breadcrumb>
+        </Card.Body>
+      </Card>
+      <br></br>
         <Card>
           <Card.Body>
             <Link to={"/admin/pos/tambah"}>

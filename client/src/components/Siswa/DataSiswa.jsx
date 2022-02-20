@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Row, Container, Col, Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
 // import Sidebar from '../Sidebar/SideBar'
 
 export default class DataSiswa extends Component {
@@ -58,39 +59,38 @@ export default class DataSiswa extends Component {
       clickToSelect: true,
     };
     const columns = [
-      // {
-      //   dataField: "siswa_id",
-      //   text: "Siswa ID",
-      //   sort : true
-      // },
       {
         dataField: "siswa_nama",
         text: "Nama Siswa",
-        sort: true
+        sort: true,
+        headerAlign: "center",
       },
       {
         dataField: "siswa_nis",
         text: "NIS",
+        align: "center",
+        headerAlign: "center",
       },
       {
         dataField: "siswa_gender",
         text: "Jenis Kelamin",
+        align: "center",
+        headerAlign: "center",
       },
       {
         dataField: "kelas_nama",
         text: "Kelas",
-      },
-      {
-        dataField: "jurusan_nama",
-        text: "Nama Jurusan",
-      },
-      {
-        dataField: "d_kelas_nama",
-        text: "Nama Kelas",
+        align: "center",
+        headerAlign: "center",
+        formatter: (cellContent, row) => {
+          return <div>
+            {`${row.kelas_nama} ${row.jurusan_nama} ${row.d_kelas_nama}`}
+          </div>},
       },
       {
         dataField: "Aksi",
         text: "Aksi",
+        align: "center",
         // make delete and update button
         formatter: (cellContent, row) => {
           return (
@@ -99,13 +99,13 @@ export default class DataSiswa extends Component {
               <Container>
                 <Row>
                   <Col md={4}>
-                    <Link to={`/ubah/siswa/${row.siswa_id}`} >
+                    <Link to={`/admin/ubah/siswa/${row.siswa_id}`} >
                       <Button variant="warning" className="mr-2" block >
                         <FontAwesomeIcon icon={faEye} />
                       </Button>
                     </Link>
                   </Col>
-                  <Col >
+                  <Col md={1}>
                     <Button
                       variant="danger"
                       onClick={() => this.handleRemove(row.siswa_id)}
@@ -129,13 +129,28 @@ export default class DataSiswa extends Component {
     return (
       <div>
         <Card>
+
+        <Card.Body>
+          <Breadcrumb style={{
+              marginTop: "auto",
+              marginBottom: "-10px"
+              
+            }}>
+          <Breadcrumb.Item href="/admin/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item active>Data</Breadcrumb.Item>
+          </Breadcrumb>
+          </Card.Body>
+        </Card>
+        <br></br>
+        <Card>
+          
           <Card.Body>
             <Link to={"/admin/siswa/tambah/"}>
               <Button className="mr-2" variant="outline-primary" block="">
                 Create
               </Button>
             </Link>
-
+            <hr/>
             <BootstrapTable
               keyField="id"
               data={data}
