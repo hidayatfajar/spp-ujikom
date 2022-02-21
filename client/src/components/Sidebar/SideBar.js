@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import ProtectedRoute from "../../ProtectedRoutes";
 // package
 import { useHistory } from "react-router";
 import {
@@ -27,7 +27,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import img from "../Assets/user.jpg";
 import notif from "../Assets/svg_notification.svg";
 
-
 // Import File
 import Dashboard from "../Dashboard/Dashboard";
 
@@ -51,7 +50,9 @@ import DataKelas from "../Kelas/DataKelas";
 import Tambahkelas from "../Kelas/TambahKelas";
 import UbahKelas from "../Kelas/UbahKelas";
 
-import DataPembayaran from "../Pembayaran/DataPembayaran";
+import Pembayaran from "../Pembayaran/Pembayaran";
+import JenisPembayaran from "../JenisPembayaran/DataPembayaran";
+import SetTarif from "../JenisPembayaran/SetTarif";
 
 import "./SideBar.css";
 
@@ -105,10 +106,9 @@ const SideBar = () => {
   };
   const history = useHistory();
   const handleLogout = () => {
-    localStorage.removeItem('dataAdmin');
-    history.push('/');
-
-  }
+    localStorage.removeItem("dataAdmin");
+    history.push("/");
+  };
   return (
     <div>
       {/* Navbar */}
@@ -138,13 +138,17 @@ const SideBar = () => {
                 <NavDropdown
                   id="nav-dropdown-dark-example"
                   title="Nama Yang Login"
-                  menuVariant="dark">
-                  <NavDropdown.Item href="/admin/profile/">Profile</NavDropdown.Item>
+                  menuVariant="dark"
+                >
+                  <NavDropdown.Item href="/admin/profile/">
+                    Profile
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout}>
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav.Item>
-
             </div>
           </Nav>
         </Navbar.Collapse>
@@ -172,7 +176,7 @@ const SideBar = () => {
         {/* --------- */}
         <div className="dropdown">
           <span className="drop">
-            <a onClick={changeDropdown} >
+            <a onClick={changeDropdown}>
               <span className="icon">
                 <FontAwesomeIcon icon={faUsers} />
               </span>
@@ -215,12 +219,19 @@ const SideBar = () => {
           <span style={{ display: text }}>Post</span>
         </a>
 
-        {/* ----------- */}
         <a href="/admin/pembayaran">
           <span className="icon">
             <FontAwesomeIcon icon={faCreditCard} />
           </span>{" "}
           <span style={{ display: text }}>Pembayaran</span>
+        </a>
+
+        {/* ----------- */}
+        <a href="/admin/jenispembayaran">
+          <span className="icon">
+            <FontAwesomeIcon icon={faCreditCard} />
+          </span>{" "}
+          <span style={{ display: text }}>Jenis Pembayaran</span>
         </a>
 
         {/* <a href="#">
@@ -245,31 +256,72 @@ const SideBar = () => {
       </div>
 
       <div className={main}>
+        <ProtectedRoute path="/admin" exact component={Dashboard} />
 
-        <Route path="/admin" exact component={Dashboard} />
+        <ProtectedRoute exact path="/admin/siswa" component={DataSiswa} />
+        <ProtectedRoute
+          exact
+          path="/admin/siswa/tambah"
+          component={TambahSiswa}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/siswa/ubah/:id"
+          component={UbahSiswa}
+        />
 
-        <Route exact path="/admin/siswa" component={DataSiswa} />
-        <Route exact path="/admin/siswa/tambah" component={TambahSiswa} />
-        <Route exact path="/admin/siswa/ubah/:id" component={UbahSiswa} />
+        <ProtectedRoute exact path="/admin/jurusan" component={DataJurusan} />
+        <ProtectedRoute
+          exact
+          path="/admin/jurusan/ubah/:id"
+          component={UbahJurusan}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/jurusan/tambah"
+          component={TambahJurusan}
+        />
 
-        <Route exact path="/admin/jurusan" component={DataJurusan} />
-        <Route exact path="/admin/jurusan/ubah/:id" component={UbahJurusan} />
-        <Route exact path="/admin/jurusan/tambah" component={TambahJurusan} />
+        <ProtectedRoute exact path="/admin/pos/" component={DataPos} />
+        <ProtectedRoute exact path="/admin/pos/tambah" component={AddPos} />
+        <ProtectedRoute exact path="/admin/pos/ubah/:id" component={EditPos} />
 
-        <Route exact path="/admin/pos/" component={DataPos} />
-        <Route exact path="/admin/pos/tambah" component={AddPos} />
-        <Route exact path="/admin/pos/ubah/:id" component={EditPos} />
+        <ProtectedRoute exact path="/admin/periode/" component={DataPeriode} />
+        <ProtectedRoute
+          exact
+          path="/admin/periode/tambah"
+          component={AddPeriode}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/periode/ubah/:id"
+          component={EditPeriode}
+        />
 
-        <Route exact path="/admin/periode/" component={DataPeriode} />
-        <Route exact path="/admin/periode/tambah" component={AddPeriode} />
-        <Route exact path="/admin/periode/ubah/:id" component={EditPeriode} />
+        <ProtectedRoute exact path="/admin/kelas/" component={DataKelas} />
+        <ProtectedRoute
+          exact
+          path="/admin/kelas/tambah"
+          component={Tambahkelas}
+        />
+        <ProtectedRoute
+          // exact
+          path="/admin/kelas/ubah/:id"
+          component={UbahKelas}
+        />
 
-        <Route exact path="/admin/kelas/" component={DataKelas} />
-        <Route exact path="/admin/kelas/tambah" component={Tambahkelas} />
-        <Route exact path="/admin/kelas/ubah/" component={UbahKelas} />
+        <ProtectedRoute
+          // exact
+          path="/admin/jenispembayaran"
+          component={JenisPembayaran}
+        />
+        <Route
+          // exact
+          path="/admin/pembayaran/set_tarif/:id"
+          component={SetTarif}
+        />
 
-        <Route exact path="/admin/pembayaran" component={DataPembayaran} />
-
+        <ProtectedRoute path="/admin/pembayaran" component={Pembayaran} />
       </div>
     </div>
   );
