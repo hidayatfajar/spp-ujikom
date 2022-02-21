@@ -13,20 +13,22 @@ export default class Data extends Component {
 
     this.state = {
       data: [],
+      tipe: "",
     };
   }
 
   getAdmin = () => {
-    axios.get("http://localhost:8000/periode/").then((res) => {
+    axios.get("http://localhost:8000/pembayaran/").then((res) => {
       this.setState({
         data: res.data,
+        tipe: res.data[0].pembayaran_tipe,
       });
     });
   };
 
-  handleRemove = (periode_id) => {
+  handleRemove = (pembayaran_id) => {
     axios
-      .delete(`http://localhost:8000/hapus/periode/${periode_id}`)
+      .delete(`http://localhost:8000/hapus/pembayaran/${pembayaran_id}`)
       .then((res) => {
         console.log(res);
       })
@@ -38,24 +40,46 @@ export default class Data extends Component {
 
   componentDidMount() {
     this.getAdmin();
+    // const get = this.state.data.map((data))
+    // console.log(get)
   }
   render() {
     const data = this.state.data;
+    const get = this.state.data.map((data) => {
+      return data.periode_akhir;
+    });
+    console.log(get);
     const selectRow = {
       mode: "radio",
       clickToSelect: true,
     };
     const columns = [
       {
-        dataField: "periode_id",
-        text: "No",
+        dataField: "pembayaran_tipe",
+        text: "Tipe",
       },
       {
         dataField: "periode_mulai",
         text: "Tahun Ajaran",
         formatter: (cellContent, row) => {
-          return <div>{`${row.periode_mulai}/${row.periode_akhir}`}</div>
-        }
+          return <div>{`${row.periode_mulai}/${row.periode_akhir}`}</div>;
+        },
+      },
+      {
+        dataField: "pos_nama",
+        text: "Nama Pos",
+      },
+      {
+        text: "Set Tarif",
+        formatter: (cellContent, row) => {
+          return (
+            <div>
+              <Link to={`/admin/pembayaran/set_tarif/${row.pembayaran_id}`}>
+                <Button variant="primary">Set Tarif</Button>
+              </Link>
+            </div>
+          );
+        },
       },
       {
         dataField: "Aksi",
@@ -67,16 +91,16 @@ export default class Data extends Component {
               <Container>
                 <Row>
                   <Col md={2}>
-                    <Link to={`/admin/periode/ubah/${row.periode_id}`} >
-                      <Button variant="warning" className="mr-2" block >
+                    <Link to={`/admin/pembayaran/ubah/${row.pembayaran_id}`}>
+                      <Button variant="warning" className="mr-2" block>
                         <FontAwesomeIcon icon={faEye} />
                       </Button>
                     </Link>
                   </Col>
-                  <Col >
+                  <Col>
                     <Button
                       variant="danger"
-                      onClick={() => this.handleRemove(row.periode_id)}
+                      onClick={() => this.handleRemove(row.pembayaran_id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
@@ -92,12 +116,11 @@ export default class Data extends Component {
       <div>
         <Card>
           <Card.Body>
-            <Link to={"/admin/periode/tambah"}>
+            <Link to={"/admin/pembayaran/tambah"}>
               <Button className="mr-2" variant="outline-primary" block="">
                 Create
               </Button>
             </Link>
-
             <BootstrapTable
               keyField="id"
               data={data}
