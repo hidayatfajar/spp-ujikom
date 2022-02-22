@@ -56,7 +56,15 @@ export default class TambahJurusan extends Component {
           <Form onSubmit={this.Submit}>
             <Form.Group className="mb-3">
               <Form.Label>Nama Jurusan</Form.Label>
-              <Form.Control name="jurusan_nama" id="jurusan_nama" type="text" value={this.state.jurusan_nama} placeholder="Nama Jurusan" noValidate onChange={this.handleChange} />
+              <Form.Control
+                name="jurusan_nama"
+                id="jurusan_nama"
+                type="text"
+                value={this.state.jurusan_nama}
+                placeholder="Nama Jurusan"
+                noValidate
+                onChange={this.handleChange}
+              />
               <div>
                 {this.state.dataError ? (
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>

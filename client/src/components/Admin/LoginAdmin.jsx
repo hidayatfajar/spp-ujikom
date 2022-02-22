@@ -78,7 +78,7 @@ export default class Login extends Component {
         className="background"
         style={{
           backgroundColor: "rgb(229,229,229)",
-          backgroundImage: `url(${bg})`,
+          // backgroundImage: `url(${bg})`,
           width: "100wh",
           height: "100vh",
         }}

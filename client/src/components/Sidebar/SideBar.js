@@ -51,7 +51,14 @@ import DataKelas from "../Kelas/DataKelas";
 import Tambahkelas from "../Kelas/TambahKelas";
 import UbahKelas from "../Kelas/UbahKelas";
 
+<<<<<<< HEAD
 import DataPembayaran from "../Pembayaran/DataPembayaran";
+=======
+import Pembayaran from "../Pembayaran/Pembayaran";
+import JenisPembayaran from "../JenisPembayaran/DataPembayaran";
+import DetailPembayaran from "../Pembayaran/DetailPembayaran";
+import SetTarif from "../JenisPembayaran/SetTarif";
+>>>>>>> e7ea5aeee2df73d10d1f939d47bd3ceeeda0cba2
 
 import "./SideBar.css";
 import Pembayaran from "../JenisPembayaran/Pembayaran";
@@ -247,16 +254,27 @@ const SideBar = () => {
 
       <div className={main}>
 
+<<<<<<< HEAD
         <Route path="/admin" exact component={Dashboard} />
 
         <Route exact path="/admin/siswa" component={DataSiswa} />
         <Route exact path="/admin/siswa/tambah" component={TambahSiswa} />
         <Route exact path="/admin/siswa/ubah/:id" component={UbahSiswa} />
+=======
+        <ProtectedRoute exact path="/admin/siswa" component={DataSiswa} />
+        <ProtectedRoute exact path="/admin/siswa/tambah" component={TambahSiswa}/>
+        <ProtectedRoute  exact path="/admin/siswa/ubah/:id" component={UbahSiswa}/>
+
+        <ProtectedRoute exact path="/admin/jurusan" component={DataJurusan} />
+        <ProtectedRoute  exact  path="/admin/jurusan/ubah/:id"  component={UbahJurusan}/>
+        <ProtectedRoute  exact  path="/admin/jurusan/tambah" component={TambahJurusan}/>
+>>>>>>> e7ea5aeee2df73d10d1f939d47bd3ceeeda0cba2
 
         <Route exact path="/admin/jurusan" component={DataJurusan} />
         <Route exact path="/admin/jurusan/ubah/:id" component={UbahJurusan} />
         <Route exact path="/admin/jurusan/tambah" component={TambahJurusan} />
 
+<<<<<<< HEAD
         <Route exact path="/admin/pos/" component={DataPos} />
         <Route exact path="/admin/pos/tambah" component={AddPos} />
         <Route exact path="/admin/pos/ubah/:id" component={EditPos} />
@@ -272,6 +290,22 @@ const SideBar = () => {
         <Route exact path="/admin/pembayaran" component={DataPembayaran} />
         <Route exact path="/admin/jenis" component={Pembayaran} />
 
+=======
+        <ProtectedRoute exact path="/admin/periode/" component={DataPeriode} />
+        <ProtectedRoute exact path="/admin/periode/tambah" component={AddPeriode}/>
+        <ProtectedRoute exact path="/admin/periode/ubah/:id" component={EditPeriode}
+        />
+
+        <ProtectedRoute exact path="/admin/kelas/" component={DataKelas} />
+        <ProtectedRoute exact path="/admin/kelas/tambah" component={Tambahkelas}/>
+        <ProtectedRoute path="/admin/kelas/ubah/:id" component={UbahKelas}/>
+
+        <ProtectedRoute path="/admin/jenispembayaran" component={JenisPembayaran}/>
+        <Route path="/admin/pembayaran/set_tarif/:id" component={SetTarif}/>
+
+        <ProtectedRoute path="/admin/pembayaran" component={Pembayaran} />
+        <ProtectedRoute path="/admin/detail_pembayaran/:id" component={DetailPembayaran} />
+>>>>>>> e7ea5aeee2df73d10d1f939d47bd3ceeeda0cba2
       </div>
     </div>
   );
