@@ -5,7 +5,10 @@ import {
   Row,
   Col,
   Container,
+  Tab,
+  Tabs,
   Button,
+  Nav,
   Table,
   FormSelect,
 } from "react-bootstrap";
@@ -17,10 +20,10 @@ export default class Pembayaran extends Component {
     this.state = {
       periode: [],
       nis: "",
-      nis_siswa : "",
-      tahun_ajaran : "",
-      nama : "",
-      jenis_kelamin : "",
+      nis_siswa: "",
+      tahun_ajaran: "",
+      nama: "",
+      jenis_kelamin: "",
     };
   }
   getPeriode = () => {
@@ -43,13 +46,13 @@ export default class Pembayaran extends Component {
     axios.get(`http://localhost:8000/siswa/${id}`).then((res) => {
       this.setState({
         nis_siswa: res.data[0].siswa_nis,
-        nama : res.data[0].siswa_nama,
-        jenis_kelamin : res.data[0].siswa_gender,
+        nama: res.data[0].siswa_nama,
+        jenis_kelamin: res.data[0].siswa_gender,
       });
       console.log(res.data[0]);
     });
-  }
-    
+  };
+
   componentDidMount = () => {
     this.getPeriode();
     console.log(this.state.nis_siswa);
@@ -68,10 +71,7 @@ export default class Pembayaran extends Component {
             <Form>
               <Row>
                 <Col>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                  >
+                  <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="auto">
                       Tahun Ajaran
                     </Form.Label>
@@ -93,10 +93,7 @@ export default class Pembayaran extends Component {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                  >
+                  <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="auto">
                       Cari Siswa
                     </Form.Label>
@@ -116,10 +113,7 @@ export default class Pembayaran extends Component {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group
-                    as={Row}
-                    className="mb-3"
-                  >
+                  <Form.Group as={Row} className="mb-3">
                     <Col>
                       <Button variant="primary" block onClick={this.Cari}>
                         Cari
@@ -131,8 +125,8 @@ export default class Pembayaran extends Component {
             </Form>
           </Card.Body>
         </Card>
-        <br/>
-        <Card style={{color : "black"}}>
+        <br />
+        <Card style={{ color: "black" }}>
           <Card.Body>
             <Card.Title>Informasi Siswa</Card.Title>
             <hr />
@@ -156,7 +150,25 @@ export default class Pembayaran extends Component {
                 </tr>
               </tbody>
             </Table>
-            </Card.Body>
+          </Card.Body>
+        </Card>
+        <br />
+        <Card style={{color : "black"}}>
+          <Card.Body>
+            <Tabs
+              defaultActiveKey="home"
+              transition={false}
+              id="noanim-tab-example"
+              className="mb-3"
+            >
+              <Tab eventKey="home" title="Home">
+                <div>asdwasdwasdawsd</div>
+              </Tab>
+              <Tab eventKey="profile" title="Profile">
+                <div>awdasdwasdwa</div>
+              </Tab>
+            </Tabs>
+          </Card.Body>
         </Card>
       </div>
     );
