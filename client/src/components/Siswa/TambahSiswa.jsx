@@ -17,7 +17,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 export default class TambahSiswa extends Component {
   constructor(props) {
     super(props);
-    this.validator = new SimpleReactValidator();
+    this.validator = new SimpleReactValidator({ autoForceUpdate: this });
 
     this.state = {
       nis: "",

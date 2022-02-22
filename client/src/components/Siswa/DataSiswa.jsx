@@ -6,7 +6,8 @@ import { Row, Container, Col, Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-// import Sidebar from '../Sidebar/SideBar'
+
+
 
 export default class DataSiswa extends Component {
   constructor(props) {
@@ -63,7 +64,6 @@ export default class DataSiswa extends Component {
         dataField: "siswa_nama",
         text: "Nama Siswa",
         sort: true,
-        headerAlign: "center",
       },
       {
         dataField: "siswa_nis",
@@ -99,7 +99,7 @@ export default class DataSiswa extends Component {
               <Container>
                 <Row>
                   <Col md={4}>
-                    <Link to={`/admin/ubah/siswa/${row.siswa_id}`} >
+                    <Link to={`/admin/siswa/ubah/${row.siswa_id}`} >
                       <Button variant="warning" className="mr-2" block >
                         <FontAwesomeIcon icon={faEye} />
                       </Button>

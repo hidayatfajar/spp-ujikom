@@ -68,9 +68,10 @@ export default class Login extends Component {
     });
   };
   render() {
-    const loggedIn = localStorage.getItem("dataAdmin");
-    if (loggedIn) {
-      this.props.history.push("/admin");
+    if (this.state.status === false) {
+      console.log("belum login");
+    } else {
+      console.log(this.state.status);
     }
     return (
       <div

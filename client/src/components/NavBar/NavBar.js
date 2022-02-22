@@ -14,7 +14,7 @@ export default class NavBar extends Component {
                 <div className="navForLandingPage">
                     <Navbar collapseOnSelect id='nav' expand="lg" variant="light" className='navbar'>
                         <Container>
-                            <Navbar.Brand href="#home"> <Image className="logo" src={logo} /> <b>Sistem Pembayaran Sekolah</b>  </Navbar.Brand>
+                            <Navbar.Brand href="#home"> <Image className="logo" src={logo} /> Sistem Pembayaran Sekolah  </Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav ">
                                 <Nav className="me-auto nav">

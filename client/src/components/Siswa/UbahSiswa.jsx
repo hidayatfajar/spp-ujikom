@@ -17,15 +17,19 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 export default class UbahSiswa extends Component {
   constructor(props) {
     super(props);
-    this.validator = new SimpleReactValidator();
+
+    this.validator = new SimpleReactValidator({ autoForceUpdate: this });
+
+    console.log(this.props.match.params.id);
 
     this.state = {
+      id: this.props.match.params.id,
       nis: "",
       nama: "",
       password: "",
       gender: "",
       kelas: [],
-      jurusan: [  ],
+      jurusan: [],
       d_kelas: [],
       dataError: "",
       errorMessage: "",
@@ -77,11 +81,34 @@ export default class UbahSiswa extends Component {
         console.log(err);
       });
   };
-
+  getData() {
+    const siswa_id = this.state.id;
+    axios
+      .get(`http://localhost:8000/siswa/${siswa_id}`)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data[0]);
+        
+        this.setState({
+          siswa_id: res.data[0].siswa_id,
+          nis: res.data[0].siswa_nis,
+          nama: res.data[0].siswa_nama,
+          password: res.data[0].siswa_password,
+          gender: res.data[0].siswa_gender,
+          selected_kelas: res.data[0].kelas_nama,
+          selected_jurusan: res.data[0].jurusan_nama,
+          selected_d_kelas: res.data[0].d_kelas_nama,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   componentDidMount() {
     this.getKelas();
     this.getJurusan();
     this.getDKelas();
+    this.getData();
   }
 
   Submit = (e) => {
@@ -91,24 +118,24 @@ export default class UbahSiswa extends Component {
       nama: this.state.nama,
       password: this.state.password,
       gender: this.state.gender,
+      
       kelas: this.state.selected_kelas,
       jurusan: this.state.selected_jurusan,
-      d_kelas: this.state.selected_d_kelas,
-      selected_kelas: this.selected_kelas,
-      selected_jurusan: this.selected_jurusan,
-      selected_d_kelas: this.selected_d_kelas
+      d_kelas: this.state.selected_d_kelas
     };
+    console.log(this.state.selected_kelas);
+    const siswa_id = this.state.siswa_id;
     e.preventDefault();
     if (this.validator.allValid()) {
       axios
-        .post("http://localhost:8000/tambah/siswa", data)
+        .put(`http://localhost:8000/ubah/siswa/${siswa_id}`, data)
         .then((res) => {
           console.log(res.data.message);
           this.setState({
             dataError: res.data.message,
           });
+          this.validator.hideMessages();
           console.log(this.state.kelas);
-          console.log(this.state.jurusan);
           if (this.state.dataError) {
             Swal.fire({
               icon: 'error',
@@ -117,6 +144,17 @@ export default class UbahSiswa extends Component {
             })
             this.setState({
               nis: "",
+              nama: "",
+              password: "",
+              gender: "",
+              kelas: "",
+              jurusan: "",
+              d_kelas: "",
+              dataError: "",
+              errorMessage: "",
+              selected_kelas: "",
+              selected_jurusan: "",
+              selected_d_kelas: "",
             });
           } else {
             Swal.fire(
@@ -126,6 +164,7 @@ export default class UbahSiswa extends Component {
             )
             this.props.history.push("/admin/siswa");
           }
+          console.log(res.data);
           console.log(res.data);
         })
         .catch((error) => {
@@ -145,13 +184,13 @@ export default class UbahSiswa extends Component {
 
 <Card.Body>
   <Breadcrumb style={{
-      marginTop: "auto",
-      marginBottom: "-10px"
+      marginTop: "-10px",
+      marginBottom: "-22px"
       
     }}>
   <Breadcrumb.Item href="/admin/">Home</Breadcrumb.Item>
   <Breadcrumb.Item href="/admin/siswa/">Data</Breadcrumb.Item>
-  <Breadcrumb.Item active>Add</Breadcrumb.Item>
+  <Breadcrumb.Item active>Edit</Breadcrumb.Item>
   </Breadcrumb>
   </Card.Body>
 </Card>
@@ -254,7 +293,7 @@ export default class UbahSiswa extends Component {
                 {this.state.dataError ? (
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
-                {this.validator.message("Kelas", this.state.selected_kelas, `required`, {
+                {this.validator.message("Kelas", this.state.kelas, `required`, {
                   className: "text-danger",
                 })}
               </div>
@@ -274,7 +313,7 @@ export default class UbahSiswa extends Component {
                 {this.state.dataError ? (
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
-                {this.validator.message("Jurusan", this.state.selected_jurusan, `required`, {
+                {this.validator.message("Jurusan", this.state.jurusan, `required`, {
                   className: "text-danger",
                 })}
               </div>
@@ -295,7 +334,7 @@ export default class UbahSiswa extends Component {
                 {this.state.dataError ? (
                   <div style={{ color: "red" }}>{this.state.errorMessage}</div>
                 ) : null}
-                {this.validator.message("Daftar Kelas", this.state.selected_d_kelas, `required`, {
+                {this.validator.message("Daftar Kelas", this.state.d_kelas, `required`, {
                   className: "text-danger",
                 })}
               </div>

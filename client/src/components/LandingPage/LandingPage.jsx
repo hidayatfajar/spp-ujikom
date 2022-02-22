@@ -33,10 +33,6 @@ export default class LandingPage extends Component {
             slidesToShow: 1,
             slidesToScroll: 1
         };
-        const loggedIn = localStorage.getItem('dataAdmin')
-        if (loggedIn) {
-            this.props.history.push('/admin')
-        }
         return (
             <div>
                 <div className="navForLandingPage" id='home'>

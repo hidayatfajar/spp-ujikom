@@ -52,10 +52,11 @@ export default class Data extends Component {
       },
       {
         dataField: "periode_mulai",
-        text: "Tahun Ajaran",
-        formatter: (cellContent, row) => {
-          return <div>{`${row.periode_mulai}/${row.periode_akhir}`}</div>
-        }
+        text: "Periode Mulai",
+      },
+      {
+        dataField: "periode_akhir",
+        text: "Periode Akhir",
       },
       {
         dataField: "Aksi",
