@@ -52,6 +52,7 @@ import UbahKelas from "../Kelas/UbahKelas";
 
 import Pembayaran from "../Pembayaran/Pembayaran";
 import JenisPembayaran from "../JenisPembayaran/DataPembayaran";
+import DetailPembayaran from "../Pembayaran/DetailPembayaran";
 import SetTarif from "../JenisPembayaran/SetTarif";
 
 import "./SideBar.css";
@@ -259,69 +260,31 @@ const SideBar = () => {
         <ProtectedRoute path="/admin" exact component={Dashboard} />
 
         <ProtectedRoute exact path="/admin/siswa" component={DataSiswa} />
-        <ProtectedRoute
-          exact
-          path="/admin/siswa/tambah"
-          component={TambahSiswa}
-        />
-        <ProtectedRoute
-          exact
-          path="/admin/siswa/ubah/:id"
-          component={UbahSiswa}
-        />
+        <ProtectedRoute exact path="/admin/siswa/tambah" component={TambahSiswa}/>
+        <ProtectedRoute  exact path="/admin/siswa/ubah/:id" component={UbahSiswa}/>
 
         <ProtectedRoute exact path="/admin/jurusan" component={DataJurusan} />
-        <ProtectedRoute
-          exact
-          path="/admin/jurusan/ubah/:id"
-          component={UbahJurusan}
-        />
-        <ProtectedRoute
-          exact
-          path="/admin/jurusan/tambah"
-          component={TambahJurusan}
-        />
+        <ProtectedRoute  exact  path="/admin/jurusan/ubah/:id"  component={UbahJurusan}/>
+        <ProtectedRoute  exact  path="/admin/jurusan/tambah" component={TambahJurusan}/>
 
         <ProtectedRoute exact path="/admin/pos/" component={DataPos} />
         <ProtectedRoute exact path="/admin/pos/tambah" component={AddPos} />
         <ProtectedRoute exact path="/admin/pos/ubah/:id" component={EditPos} />
 
         <ProtectedRoute exact path="/admin/periode/" component={DataPeriode} />
-        <ProtectedRoute
-          exact
-          path="/admin/periode/tambah"
-          component={AddPeriode}
-        />
-        <ProtectedRoute
-          exact
-          path="/admin/periode/ubah/:id"
-          component={EditPeriode}
+        <ProtectedRoute exact path="/admin/periode/tambah" component={AddPeriode}/>
+        <ProtectedRoute exact path="/admin/periode/ubah/:id" component={EditPeriode}
         />
 
         <ProtectedRoute exact path="/admin/kelas/" component={DataKelas} />
-        <ProtectedRoute
-          exact
-          path="/admin/kelas/tambah"
-          component={Tambahkelas}
-        />
-        <ProtectedRoute
-          // exact
-          path="/admin/kelas/ubah/:id"
-          component={UbahKelas}
-        />
+        <ProtectedRoute exact path="/admin/kelas/tambah" component={Tambahkelas}/>
+        <ProtectedRoute path="/admin/kelas/ubah/:id" component={UbahKelas}/>
 
-        <ProtectedRoute
-          // exact
-          path="/admin/jenispembayaran"
-          component={JenisPembayaran}
-        />
-        <Route
-          // exact
-          path="/admin/pembayaran/set_tarif/:id"
-          component={SetTarif}
-        />
+        <ProtectedRoute path="/admin/jenispembayaran" component={JenisPembayaran}/>
+        <Route path="/admin/pembayaran/set_tarif/:id" component={SetTarif}/>
 
         <ProtectedRoute path="/admin/pembayaran" component={Pembayaran} />
+        <ProtectedRoute path="/admin/detail_pembayaran/:id" component={DetailPembayaran} />
       </div>
     </div>
   );

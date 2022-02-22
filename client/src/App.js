@@ -4,32 +4,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./components/Pages/Login";
 import LoginAdmin from "./components/Admin/LoginAdmin";
 import LandingPage from "./components/LandingPage/LandingPage";
-
-import User from "./components/User/Akun";
-import Dashboard from "./components/Dashboard/Dashboard";
-
-import DataSiswa from './components/Siswa/DataSiswa'
-import TambahSiswa from './components/Siswa/TambahSiswa'
-import UbahSiswa from './components/Siswa/UbahSiswa'
-
-import DataJurusan from './components/Jurusan/DataJurusan'
-import TambahJurusan from "./components/Jurusan/TambahJurusan";
-import UbahJurusan from './components/Jurusan/UbahJurusan'
-
-import DataKelas from "./components/Kelas/DataKelas";
-import Tambahkelas from "./components/Kelas/TambahKelas";
-import Ubahkelas from "./components/Kelas/UbahKelas";
-
-import DataPos from "./components/Pos/DataPos";
-import AddPos from "./components/Pos/AddPos";
-import EditPos from "./components/Pos/EditPos";
-
-import DataPeriode from "./components/Periode/DataPeriode";
-import AddPeriode from "./components/Periode/AddPeriode";
-import EditPeriode from "./components/Periode/EditPeriode";
-
-import DataPembayaran from "./components/Pembayaran/DataPembayaran"
-import ProtectedRoute from "./ProtectedRoutes"
 import SideBar from "./components/Sidebar/SideBar";
 
 export default class App extends Component {
